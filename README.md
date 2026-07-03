@@ -56,11 +56,13 @@ source .venv/bin/activate
 
 ## 📦 Step 3 — Install Dependencies
 
-Install the Google ADK package and `python-dotenv` for environment variable management.
+Install the Google ADK package, `python-dotenv` for environment variable management, and `litellm` which is required for Groq models integration.
 
 ```bash
-pip install google-adk python-dotenv
+pip install google-adk python-dotenv litellm
 ```
+
+> 💡 **Groq Integration:** Under the hood, Google ADK uses `litellm` to call Groq models. Installing `litellm` ensures compatibility and smooth execution when using `groq/llama-3.3-70b-versatile` or other Groq models.
 
 Verify the installation:
 
