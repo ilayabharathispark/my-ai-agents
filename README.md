@@ -63,6 +63,8 @@ pip install google-adk python-dotenv litellm
 ```
 
 > 💡 **Groq Integration:** Under the hood, Google ADK uses `litellm` to call Groq models. Installing `litellm` ensures compatibility and smooth execution when using `groq/llama-3.3-70b-versatile` or other Groq models.
+> 
+> 🔍 **Note on `groq` Python SDK:** You do **not** need to install the separate `groq` library. LiteLLM handles all calls to the Groq API directly, so having `litellm` + `GROQ_API_KEY` is fully sufficient.
 
 Verify the installation:
 
