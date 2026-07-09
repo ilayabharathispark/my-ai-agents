@@ -1,0 +1,9 @@
+# 1. Create an agent
+adk create <agent_name>
+
+# 2. Go into the project
+cd <agent_name>
+
+# 3. Test it in the browser
+adk web <agent_name>
+
