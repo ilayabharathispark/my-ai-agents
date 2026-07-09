@@ -17,24 +17,40 @@ BQ_SERVER_PATH = PROJECT_ROOT / "my_mcp" / "bq_mcp_server.py"
 
 #Configure McpToolset pointing to the custom BigQuery FastMCP server
 #Under the hood, this launches bq_mcp_server.py using the active python interpreter
-bq_toolset = McpToolset(
+
+#=========================================
+# Using Custom MCP server (Local)
+#=========================================
+# bq_toolset = McpToolset(
+#     connection_params=StdioServerParameters(
+#         command=sys.executable,
+#         args=[str(BQ_SERVER_PATH)],
+#     )
+# )
+
+#=========================================
+# Using Google's MCP server (Google Cloud Console)
+#=========================================
+bigquery_toolset = McpToolset(
     connection_params=StdioServerParameters(
-        command=sys.executable,
-        args=[str(BQ_SERVER_PATH)],
+        command="npx",
+        args=[
+            "-y",
+            "@toolbox-sdk/server",
+            "--prebuilt",
+            "bigquery",
+            "--stdio",
+        ],
+        env={
+            "BIGQUERY_PROJECT": "ilaya-bharathi-murugan",
+            "GOOGLE_APPLICATION_CREDENTIALS": r"C:\\Users\\ILAYA BHARATHI M\\Downloads\\ilaya-bharathi-murugan-e7fa05858bec.json",
+        },
     )
 )
 
-# bq_toolset=StdioServerParameters(
-#     command=sys.executable,
-#     args=[
-#         "-u",                      # unbuffered I/O
-#         str(BQ_SERVER_PATH)
-#     ],
-# )
-
 # Root agent configuration
 root_agent = Agent(
-    model='gemini-2.5-flash',
+    model="groq/meta-llama/llama-4-scout-17b-16e-instruct", #gemini-2.5-flash
     name='salary_agent',
     description='An agent specialized in querying employee salary information and statistics from Google BigQuery.',
     instruction=(
@@ -43,5 +59,5 @@ root_agent = Agent(
         "to query employee details, department statistics, and salary ranges. "
         "Always format monetary values nicely (e.g., $50,000.00)."
     ),
-    tools=[bq_toolset]
+    tools=[bigquery_toolset]  # bq_toolset
 )
