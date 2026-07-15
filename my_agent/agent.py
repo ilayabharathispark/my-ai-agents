@@ -8,8 +8,8 @@ from google.adk.tools.agent_tool import AgentTool
 # Load environment variables from .env file
 load_dotenv()
 
-# GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # Path to the info file (same folder as this script)
 INFO_FILE = Path(__file__).parent / "ilaya_info.txt"
@@ -17,7 +17,7 @@ INFO_FILE = Path(__file__).parent / "ilaya_info.txt"
 
 # ── Sub-agent: handles web search (built-in tool only) ──────────────────────
 search_agent = Agent(
-    model='groq/llama-3.3-70b-versatile',
+    model='gemini-2.5-flash',
     name='search_agent',
     description='Searches the web for up-to-date information.',
     instruction='Search the web and return accurate, concise answers.',
@@ -35,7 +35,7 @@ def ilaya_details():
 
 # ── Root agent: uses custom functions + delegates search to search_agent ─────
 root_agent = Agent(
-    model='groq/llama-3.3-70b-versatile',
+    model='gemini-2.5-flash',
     name='root_agent',
     description='A helpful assistant for user questions.',
     instruction=(
